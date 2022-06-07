@@ -1,0 +1,73 @@
+<!doctype html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>Imageboard</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Zen+Kaku+Gothic+Antique:wght@300&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="styles.css">
+
+</head>
+<body>
+    <h1>WATERCOLOR IMAGEBOARD</h1>
+
+    <div class="separador"></div>
+
+
+<div id="app">
+
+    <div class="maincontent">
+
+    <div id="uploader" class="upload_form">
+        
+        
+        <form @submit.prevent="handleSubmit">
+            <h3>Upload your watercolor</h3>
+             
+                       
+            <input name="title" placeholder="Title" v-model="title" />
+            <input name="description" placeholder="Description" v-model="description" />
+            <input name="username" placeholder="Username" v-model="username" />
+            <!-- Handle file changes by providing a method to `@change` -->
+            <input
+            class="selectfile"
+                name="image"
+                type="file"
+                accept="image/*"
+                @change="handleFileChange"
+            />
+            <button class="submit">Submit</button>
+        </form>
+      </div>
+
+      <modal-comp :id="idToFetch"  v-if="idToFetch"     
+      @close="onClose"></modal-comp>
+
+
+
+    <div class="imageboard">       
+        <div v-for="item in images" @click="onUserClick(item)" class="boarditem">
+                     
+            <img v-bind:src="item.url" :alt="item.title">
+            <p class="imagetitle">{{item.title}}</p>
+         
+    </div>
+
+    <div class="showmorediv">
+    <button v-if="moreimg" @click="onMore" class="showmore">Show more</button>
+</div>
+    </div>
+
+</div>
+
+    
+</div>
+
+
+
+
+
+    <script src="/js/app.js" type="module" crossorigin="use-credentials"></script>
+</body>
+</html>
